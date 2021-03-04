@@ -15,7 +15,7 @@ visit https://www.kaggle.com/rtatman/speech-accent-archive, and download.
 We are using CNN after converting audio accent files to images using peak extraction.
 
 This data would be used
-http://accent.gmu.edu/howto.php
+http://accent.gmu.edu/howto.php  
 *kaggle link: https://www.kaggle.com/rtatman/speech-accent-archive
 
 the following repo is used to pre-process the accents audio-file, and maybe distinguish accents
