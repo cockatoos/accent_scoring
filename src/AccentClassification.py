@@ -130,6 +130,7 @@ for f in files:
     if any(t in f for t in other_accent_types):
         other_accent_files.append(f)
 
+np.random.seed(100)
 np.random.shuffle(english_accent_files)
 np.random.shuffle(other_accent_files)
 
@@ -140,9 +141,9 @@ train_files = english_accent_files[0:end_idx_train] + other_accent_files[0:end_i
 val_files   = english_accent_files[end_idx_train:end_idx_val] + other_accent_files[end_idx_train:end_idx_val]
 test_files  = english_accent_files[end_idx_val:end_idx_test] + other_accent_files[end_idx_val:end_idx_test]
 
-np.random.shuffle(train_files)
-np.random.shuffle(val_files)
-np.random.shuffle(test_files)
+# np.random.shuffle(train_files)
+# np.random.shuffle(val_files)
+# np.random.shuffle(test_files)
 
 print(f"Number of training files: {len(train_files)}")
 print(f"Number of validaiton files: {len(val_files)}")
