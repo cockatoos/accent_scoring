@@ -358,7 +358,6 @@ for epoch in range(epochs):
                 o = model(d.to(device))
                 loss = nn.BCELoss()(o,l.to(device).reshape(-1,1))
                 val_loss += loss.item()
-                val_correct += (o == l).float().sum()
                 o = o.reshape(1,-1)
                 o = o.squeeze()
                 for i in range(o.size()[0]):
@@ -366,7 +365,6 @@ for epoch in range(epochs):
                         val_correct += 1
 
             accuracy = 100 * val_correct / len(val_data)
-            accuracy = accuracy.item()
             if accuracy > max_val_acc:
                 print('new record making model!')
                 max_val_acc = accuracy
