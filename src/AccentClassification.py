@@ -115,13 +115,18 @@ other_accent_types = ["mandarin", "japanese", "korean", "taiwanese", "cantonese"
 english_accent_files = []
 other_accent_files = []
 
-num_train_files = 150
+eng_num_train_files = 530
+other_num_train_files = 150
 num_val_files = 23
 num_test_files = 25
 
-end_idx_train = num_train_files
-end_idx_val = end_idx_train + num_val_files
-end_idx_test = end_idx_val + num_test_files
+eng_end_idx_train = eng_num_train_files
+eng_end_idx_val = eng_end_idx_train + num_val_files
+eng_end_idx_test = eng_end_idx_val + num_test_files
+
+other_end_idx_train = other_num_train_files
+other_end_idx_val = other_end_idx_train + num_val_files
+other_end_idx_test = other_end_idx_val + num_test_files
 
 for f in files:
     if "english" in f:
@@ -136,9 +141,9 @@ np.random.shuffle(other_accent_files)
 print(f"Number of english accent files: {len(english_accent_files)}")
 print(f"Number of other accent files: {len(other_accent_files)}")
 
-train_files = english_accent_files[0:end_idx_train] + other_accent_files[0:end_idx_train]
-val_files   = english_accent_files[end_idx_train:end_idx_val] + other_accent_files[end_idx_train:end_idx_val]
-test_files  = english_accent_files[end_idx_val:end_idx_test] + other_accent_files[end_idx_val:end_idx_test]
+train_files = english_accent_files[0:eng_end_idx_train] + other_accent_files[0:other_end_idx_train]
+val_files   = english_accent_files[eng_end_idx_train:eng_end_idx_val] + other_accent_files[other_end_idx_train:other_end_idx_val]
+test_files  = english_accent_files[eng_end_idx_val:eng_end_idx_test] + other_accent_files[other_end_idx_val:other_end_idx_test]
 
 np.random.shuffle(train_files)
 np.random.shuffle(val_files)
@@ -218,12 +223,12 @@ def generate_model_data(path, files, train):
             labels.append(label)
             #counter += 1
 
-            if train:
-                noise = np.random.normal(0,1, mfcc.shape)
-                mfcc_noisy = mfcc + noise
-                noisy_data = generate_mfcc_data(mfcc_noisy)
-                items.append(noisy_data)
-                labels.append(label)
+            # if train:
+            #     noise = np.random.normal(0,1, mfcc.shape)
+            #     mfcc_noisy = mfcc + noise
+            #     noisy_data = generate_mfcc_data(mfcc_noisy)
+            #     items.append(noisy_data)
+            #     labels.append(label)
                 #torch.save(torch.from_numpy(noisy_data).float(), path / f"{label}_word{counter}.pt")
                 #counter += 1
 
@@ -368,7 +373,7 @@ for epoch in range(epochs):
             if accuracy > max_val_acc:
                 print('new record making model!')
                 max_val_acc = accuracy
-                torch.save(model.state_dict(), args.model_path+'/model.pt')
+                torch.save(model, args.model_path+'/model.pt')
             print(f"Validation loss for epoch {epoch}: {val_loss / len(val_loader)}, accuracy: {accuracy}")
 
     accuracy = 100 * correct / len(train_data)
