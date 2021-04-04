@@ -19,12 +19,3 @@
 
 ## Result
 The trained model would be registered in you AzureML. Find it in Models tab.
-# Methods
-We are using CNN after converting audio accent files to images using peak extraction.
-
-This data would be used
-http://accent.gmu.edu/howto.php  
-*kaggle link: https://www.kaggle.com/rtatman/speech-accent-archive
-
-the following repo is used to pre-process the accents audio-file, and maybe distinguish accents
-https://github.com/libphy/which_animal
