@@ -373,7 +373,7 @@ with torch.no_grad():
     for j, (d,l) in enumerate(test_loader):
         o = model(d.to(device))
         loss = nn.BCELoss()(o,l.to(device).reshape(-1,1))
-        val_loss += loss.item()
+        test_loss += loss.item()
         o = o.reshape(1,-1)
         o = o.squeeze()
         for i in range(o.size()[0]):
